@@ -1,0 +1,137 @@
+.dropdown-menu {
+    border: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    padding: 5px 20px 10px;
+    width: 200px;
+    font-size: 12px;
+    font-weight: 400;
+    text-shadow: none;
+    text-transform: none !important;
+    border-top: 2px solid #ec008c;
+    margin-left: -86px;
+    margin-top: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.dropdown-menu h5 {
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 5px;
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+    font-size: 13px;
+}
+
+.dropdown-menu label {
+    font-weight: 500;
+    color: #555 !important;
+    width: 100%;
+}
+
+.dropdown-menu button.add_to_basket {
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    display: block;
+    font-weight: 500;
+    text-align: center;
+    padding: 5px 10px;
+    margin-top: 15px;
+    color: #ec008c;
+    text-decoration: none;
+    width: 100%;
+    border: 0;
+}
+
+.dropdown-menu label input {
+    margin-right: 5px;
+}
+
+.dropdown-menu label span {
+    float: right !important;
+    display: inline-block;
+    text-align: right;
+}
+
+.dropdown-menu button.add_to_basket:hover {
+    background-color: #ec008c;
+    color: #fff;
+    border: 0;
+}
+
+.dropdown-menu button.add_to_basket:focus {
+    outline: 0;
+}
+
+#cart_box {
+    background: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #ededed;
+    margin-bottom: 25px;
+    padding: 15px;
+    color: #555555;
+    font-size: 13px;
+}
+
+#cart_box h3 {
+    background: #f8f8f8;
+    margin: -15px -15px 15px;
+    padding: 15px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-topright: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    font-size: 18px;
+}
+
+a.remove_item {
+    color: #ddd;
+    font-size: 14px;
+}
+
+a.remove_item:hover {
+    color: #C33;
+}
+
+.table.table_summary td {
+    border-top: 0;
+    color: #555555;
+    padding: 8px;
+}
+
+.row#options_2 {
+    margin-bottom: -10px;
+    margin-top: -5px;
+}
+
+.table td.total_confirm,
+.table.table_summary td.total {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+#cart_box .btn_full,
+#cart_box a.btn_full {
+    background: #ec008c;
+    font-size: 15px;
+}
+
+.btn_full,
+a.btn_full {
+    border: none;
+    width: 100%;
+    background: #85c99d;
+    padding: 12px 20px;
+    transition: all .3s;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}

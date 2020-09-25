@@ -1,0 +1,49 @@
+.shop_list {
+    color: #555;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.shop_list:hover {
+    transform: translate(0, -5px);
+    -webkit-transform: translate(0, -5px);
+    -ms-transform: translate(0, -5px);
+    -webkit-box-shadow: 0 2px 0 0 #ebedef;
+    -moz-box-shadow: 0 2px 0 0 #ebedef;
+    box-shadow: 0 2px 0 0 #ebedef;
+}
+
+.popular_img.active {
+    position: absolute;
+    text-indent: -9999px;
+    top: -5px;
+    left: 11px;
+    background: url(http://www.ansonika.com/quickfood/img/ribbon_popular.png) no-repeat;
+    width: 81px;
+    height: 80px;
+    z-index: 3;
+}
+
+.takeaway.active,
+.delivery.active {
+    color: #6C3;
+}
+
+.full_star {
+    color: #FC0;
+    margin-right: 3px;
+}
+
+.view_menu {
+    border: none;
+    background: #85c99d;
+    padding: 10px;
+    transition: all .3s;
+    border-radius: 3px;
+    font-weight: 600;
+    display: block;
+    color: #fff;
+    margin: auto;
+    font-size: 12px;
+    text-decoration: none !important;
+}

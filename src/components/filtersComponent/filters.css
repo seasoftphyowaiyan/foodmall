@@ -1,0 +1,54 @@
+#filters_col {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ededed;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-bottom: 25px;
+}
+
+a#filters_col_bt {
+    display: block;
+    color: #444;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.filter_type h6 {
+    border-top: 1px solid #ddd;
+    margin: 15px 0;
+    padding: 15px 0 0;
+}
+
+.filter_type h6 {
+    border-top: 1px solid #ddd;
+    margin: 15px 0;
+    padding: 15px 0 0;
+}
+
+.filter_type ul {
+    padding: 0;
+    margin: 0 0 15px;
+    list-style: none;
+}
+
+.filter_type ul li .rating {
+    font-size: 16px;
+    /* left: -7px; */
+    position: relative;
+    /* top: 3px; */
+    color: #ccc;
+}
+
+.filter_type ul li .form-check-input {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 10px 2px 0;
+    padding: 0;
+    width: 22px;
+    height: 22px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
