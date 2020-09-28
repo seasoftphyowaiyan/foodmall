@@ -14,11 +14,12 @@ const PrivateRoute = ({
     render = {
         props => (
             localStorage.getItem('user') && localStorage.getItem('token') ?
-            < Component {
+            <
+            Component {
                 ...props
             }
-            /> :
-            < Redirect to = {
+            /> : <
+            Redirect to = {
                 {
                     pathname: '/login',
                     state: {

@@ -12,7 +12,7 @@ const HomePage = () => {
       <CarouselComponent />
 
       <div className="container text-center mt-5">
-        <div className="row">
+        <div className="row mb-4">
           <div className="col-12 mb-4">
             <h2>How it works</h2>
             <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
@@ -152,10 +152,10 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <PopularShop />
-        <TopRatingShop />
-        <LatestArticle />
       </div>
+      <PopularShop />
+      <TopRatingShop />
+      <LatestArticle />
     </div>
   );
 };

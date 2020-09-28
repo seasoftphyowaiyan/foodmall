@@ -4,7 +4,7 @@ import { MENU_ROUTES } from "../../routes/routes";
 import PrivateLink from "../privateRouteComponent/privateLinkComponent";
 
 const NavbarComponent = () => {
-  // console.log(localStorage.getItem("user"));
+  console.log(localStorage.getItem("user"));
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark"
@@ -43,23 +43,33 @@ const NavbarComponent = () => {
           })} */}
 
           {MENU_ROUTES.map((route, index) => {
-            if (route.auth) {
-              return (
-                <li key={index} className="nav-item active">
-                  <PrivateLink to={route.path} className="nav-link">
-                    {route.name}
-                  </PrivateLink>
-                </li>
-              );
-            } else {
-              return (
-                <li key={index} className="nav-item active">
-                  <Link to={route.path} className="nav-link">
-                    {route.name}
-                  </Link>
-                </li>
-              );
-            }
+            return route.auth ? (
+              <li
+                key={index}
+                className={`nav-item active ${
+                  localStorage.getItem("user") && localStorage.getItem("token")
+                    ? ""
+                    : null
+                }`}
+              >
+                <PrivateLink to={route.path} className="nav-link">
+                  {route.name}
+                </PrivateLink>
+              </li>
+            ) : (
+              <li
+                key={index}
+                className={`nav-item active ${
+                  localStorage.getItem("user") && localStorage.getItem("token")
+                    ? "d-none"
+                    : null
+                }`}
+              >
+                <Link to={route.path} className="nav-link">
+                  {route.name}
+                </Link>
+              </li>
+            );
           })}
 
           {/* {() => {

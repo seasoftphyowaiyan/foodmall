@@ -2,6 +2,7 @@
     color: #555;
     -webkit-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
+    min-height: 175px;
 }
 
 .shop_list:hover {

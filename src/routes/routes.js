@@ -35,8 +35,8 @@ export const MENU_ROUTES = [{
         name: 'User Profile',
     },
     {
-        path: "/",
-        component: HomePage,
+        path: "/logout",
+        component: reduxLogin,
         auth: true,
         name: 'Logout',
     }

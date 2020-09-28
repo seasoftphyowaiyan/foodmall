@@ -6,32 +6,24 @@ import {
 } from "react-router-dom";
 
 const PrivateLink = ({
-    path: Component,
-    ...rest
-}) => ( <
-    Link {
+        path: Component,
         ...rest
-    }
-    render = {
-        props => (
-            localStorage.getItem('user') && localStorage.getItem('token') ?
-            <
-            Component {
-                ...props
+    }) => {
+        if (localStorage.getItem('user') && localStorage.getItem('token')) {
+            return <Link {
+                ...rest
             }
-            /> : <
-            Redirect to = {
-                {
-                    pathname: '/login',
-                    state: {
-                        from: props.location
+            />}
+            else {
+                return <
+                    Redirect to = {
+                        {
+                            pathname: '/',
+                            state: {
+                                from: rest.location
+                            }
+                        }
                     }
-                }
+                />;}
             }
-            />
-        )
-    }
-    />
-)
-
-export default PrivateLink;
+            export default PrivateLink;
