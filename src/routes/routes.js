@@ -1,6 +1,7 @@
 import React from "react";
 import reduxLogin from "../components/loginComponent/loginComponent";
 import Register from "../components/registerComponent/registerComponent";
+import CheckOutPage from "../pages/checkoutPage";
 import HomePage from "../pages/homePage";
 import ShopListingPage from "../pages/shopListingPage";
 
@@ -15,6 +16,12 @@ export const MENU_ROUTES = [{
         component: ShopListingPage,
         auth: true,
         name: 'Shop Listing',
+    },
+    {
+        path: "/checkout_process",
+        component: CheckOutPage,
+        auth: true,
+        name: 'CheckOut',
     },
     {
         path: "/register",

@@ -1,5 +1,5 @@
 export const ADDTOCART = {
-  ADD_CART: "ADD_CART",
+  ADD_TO_CART: "ADD_TO_CART",
 }
 
 export const AUTH = {

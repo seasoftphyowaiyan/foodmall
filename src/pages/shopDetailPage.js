@@ -6,71 +6,170 @@ import Foods from "../data/food.json";
 import NavbarComponent from "../components/navbarComponent/navbarComponent";
 import ShopDetailComponent from "../components/shopDetailComponent/shopDetailComponent";
 import CartComponent from "../components/cartComponent/cartComponent";
+import { connect } from "react-redux";
+import ADD_TO_CART_ACTIONS from "../store/actions/addToCart-action";
 
 class ShopDetailPage extends React.Component {
-  state = {
-    orders: [],
-    total: 0,
-    emptyText: "Cart is Empty!",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      order: {
+        items: [],
+        total: 0,
+      },
+      emptyText: "Cart is Empty!",
+    };
+  }
+
+  componentDidMount() {
+    let order = localStorage.getItem("order")
+      ? JSON.parse(localStorage.getItem("order"))
+      : this.state.order;
+
+    this.setState({
+      order: order,
+      emptyText: !order.items.length ? "Cart is Empty!" : "",
+    });
+  }
+
   addToCart = (foodId, foodName, foodPrice, foodDelivery) => {
-    const orderIndex = this.state.orders.findIndex(
+    // this.props.dispatch(
+    //   ADD_TO_CART_ACTIONS.getaddToCart(
+    //     foodId,
+    //     foodName,
+    //     foodPrice,
+    //     foodDelivery,
+    //     this.state.order,
+    //     this.state.total
+    //   )
+    // );
+    const orderIndex = this.state.order.items.findIndex(
       (order) => order.id == foodId
     );
     if (orderIndex != -1) {
-      let newArray = [...this.state.orders];
+      let newArray = [...this.state.order.items];
       newArray[orderIndex] = {
         ...newArray[orderIndex],
         price: foodPrice * (newArray[orderIndex].quantity + 1),
         quantity: newArray[orderIndex].quantity + 1,
       };
-      this.setState({
-        orders: newArray,
-        total: this.state.total + foodPrice,
-      });
-    } else {
-      this.setState({
-        orders: [
-          ...this.state.orders,
-          {
-            id: foodId,
-            name: foodName,
-            price: foodPrice,
-            delivery: foodDelivery,
-            quantity: 1,
+      this.setState(
+        {
+          order: {
+            items: newArray,
+            total: this.state.order.total + foodPrice,
           },
-        ],
-        total: this.state.total + foodPrice,
-        emptyText: "",
-      });
+        },
+        () => {
+          this.saveLocalStorage();
+        }
+      );
+    } else {
+      this.setState(
+        {
+          order: {
+            items: [
+              ...this.state.order.items,
+              {
+                id: foodId,
+                name: foodName,
+                price: foodPrice,
+                delivery: foodDelivery,
+                quantity: 1,
+              },
+            ],
+            total: this.state.order.total + foodPrice,
+          },
+          emptyText: "",
+        },
+        () => {
+          this.saveLocalStorage();
+        }
+      );
     }
   };
   deleteItem = (deleteId, foodPrice) => {
-    const orderIndex = this.state.orders.findIndex(
+    const orderIndex = this.state.order.items.findIndex(
       (order) => order.id == deleteId
     );
-    // if (orderIndex != -1) {
-    //   let newArray = [...this.state.orders];
-    //   newArray[orderIndex] = {
-    //     ...newArray[orderIndex],
-    //     price: newArray[orderIndex].price - foodPrice,
-    //     quantity: newArray[orderIndex].quantity - 1,
-    //   };
-    //   console.log(newArray[orderIndex].price);
-    //   this.setState({
-    //     orders: newArray,
-    //     total: this.state.total - foodPrice,
-    //   });
-    // } else {}
-    this.setState({
-      orders: this.state.orders.filter((order) => order.id !== deleteId),
-    });
+    if (orderIndex != -1) {
+      let newArray = [...this.state.order.items];
+      newArray[orderIndex] = {
+        ...newArray[orderIndex],
+        price:
+          newArray[orderIndex].price -
+          foodPrice / newArray[orderIndex].quantity,
+        quantity: newArray[orderIndex].quantity - 1,
+      };
+      var totalAmount =
+        newArray[orderIndex].price / newArray[orderIndex].quantity;
+      if (isNaN(totalAmount)) {
+        totalAmount = foodPrice;
+      }
+      this.setState(
+        {
+          order: {
+            items: newArray,
+            total: this.state.order.total - totalAmount,
+          },
+        },
+        () => {
+          this.saveLocalStorage();
+        }
+      );
+      if (newArray[orderIndex].quantity == 0) {
+        this.setState(
+          {
+            order: {
+              items: this.state.order.items.filter(
+                (order) => order.id !== deleteId
+              ),
+              total: this.state.order.total - totalAmount,
+            },
+            // emptyText: "Cart is Empty!",
+          },
+          () => {
+            this.saveLocalStorage();
+          }
+        );
+      }
+    } else {
+      //   this.setState(
+      //     {
+      //       order: {
+      //         items: this.state.order.items.filter(
+      //           (order) => order.id !== deleteId
+      //         ),
+      //       },
+      //     },
+      //     () => {
+      //       this.saveLocalStorage();
+      //     }
+      //   );
+    }
   };
 
+  saveLocalStorage = () => {
+    localStorage.setItem("order", JSON.stringify(this.state.order));
+  };
+
+  resetCart = () => {
+    this.setState(
+      {
+        order: {
+          items: [],
+          total: 0,
+        },
+        emptyText: "Cart is Empty!",
+      },
+      () => {
+        localStorage.removeItem("order", JSON.stringify(this.state.order));
+      }
+    );
+  };
   render() {
     const propsId = this.props.match.params.id;
     const ShopDetail = Shops.find((shop) => propsId == shop.id);
-    console.log(this.state.orders);
     return (
       <div>
         <NavbarComponent />
@@ -263,15 +362,14 @@ class ShopDetailPage extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-3">
-              <button onClick={this.addToCart}>Add</button>
+              <button onClick={this.resetCart}>Reset Cart</button>
             </div>
             <div className="col-md-6">
               <ShopDetailComponent id={propsId} addToCart={this.addToCart} />
             </div>
             <div className="col-md-3">
               <CartComponent
-                orders={this.state.orders}
-                total={this.state.total}
+                order={this.state.order}
                 emptyText={this.state.emptyText}
                 deleteItem={this.deleteItem}
               />
@@ -282,4 +380,6 @@ class ShopDetailPage extends React.Component {
     );
   }
 }
+
+// let reduxCart = connect()(ShopDetailPage);
 export default ShopDetailPage;

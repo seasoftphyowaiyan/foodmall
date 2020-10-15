@@ -27,21 +27,6 @@ const NavbarComponent = () => {
 
       <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-          {/* <li className="nav-item active">
-            <a className="nav-link" href="#">
-              Home <span className="sr-only">(current)</span>
-            </a>
-          </li> */}
-          {/* {MENU_ROUTES.map((route, index) => {
-            return (
-              <li key={index} className="nav-item active">
-                <Link to={route.path} className="nav-link">
-                  {route.name}
-                </Link>
-              </li>
-            );
-          })} */}
-
           {MENU_ROUTES.map((route, index) => {
             return route.auth ? (
               <li
@@ -71,27 +56,6 @@ const NavbarComponent = () => {
               </li>
             );
           })}
-
-          {/* {() => {
-            if(localStorage.getItem('user') && localStorage.getItem('token')) {
-                return(
-                  <Link to="/user_profile" className="nav-link">User Profile</Link>
-                  <Link to="/logout" className="nav-link">Logout</Link>
-                );
-            } else{
-              return;
-            }
-}} */}
-          {/* <li className="nav-item">
-            <a className="nav-link" href="#">
-              Link
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link disabled" href="#" aria-disabled="true">
-              Disabled
-            </a>
-          </li> */}
         </ul>
         <form className="form-inline my-2 my-lg-0">
           <input

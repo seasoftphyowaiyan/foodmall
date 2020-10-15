@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CartComponent = (props) => {
+  let { emptyText, order } = props;
   return (
     <div id="cart_box">
       <h3>
@@ -8,21 +10,21 @@ const CartComponent = (props) => {
         <i className="fas fa-shopping-cart text-right float-right"></i>
       </h3>
       <table className="table table_summary">
-        <caption className="py-0 px-1">{props.emptyText}</caption>
+        <caption className="py-0 px-1">{emptyText}</caption>
         <tbody>
-          {props.orders.map((order, index) => (
+          {order.items.map((item, index) => (
             <tr key={index}>
               <td>
-                <a href="#0" className="remove_item">
+                <a href="#0" className="remove_item mr-1">
                   <i
-                    className="fas fa-minus-circle mr-1"
-                    onClick={() => props.deleteItem(order.id, order.price)}
+                    className="fas fa-minus-circle"
+                    onClick={() => props.deleteItem(item.id, item.price)}
                   ></i>
                 </a>
-                <strong>{order.quantity}x</strong> {order.name}
+                <strong>{item.quantity}x</strong> {item.name}
               </td>
               <td className="text-right">
-                <strong className="text-right">${order.price}</strong>
+                <strong className="text-right">${item.price}</strong>
               </td>
             </tr>
           ))}
@@ -84,15 +86,15 @@ const CartComponent = (props) => {
           <tr>
             <td className="total">TOTAL</td>
             <td className="total text-right">
-              <span>${props.total}</span>
+              <span>${order.total}</span>
             </td>
           </tr>
         </tbody>
       </table>
       <hr />
-      <a className="btn_full" href="cart.html">
+      <Link to="/checkout_process" className="btn_full">
         Order now
-      </a>
+      </Link>
     </div>
   );
 };

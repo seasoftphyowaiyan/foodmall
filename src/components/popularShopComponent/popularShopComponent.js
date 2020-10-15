@@ -15,8 +15,8 @@ const PopularShop = () => {
             borderRadius: 7,
           }}
         >
-          <div class="col-md-12 mb-4">
-            <h2 class="text-center text-white">Popular Shops</h2>
+          <div className="col-md-12 mb-4">
+            <h2 className="text-center text-white">Popular Shops</h2>
           </div>
           {PopularShops.map((shop) => (
             <div className="col-md-6" key={shop.id}>
