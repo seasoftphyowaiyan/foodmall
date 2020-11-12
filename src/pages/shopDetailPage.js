@@ -1,13 +1,14 @@
 import React from "react";
 import "./shopDetail.css";
 import { Link } from "react-router-dom";
-import Shops from "../data/shops.json";
 import Foods from "../data/food.json";
 import NavbarComponent from "../components/navbarComponent/navbarComponent";
 import ShopDetailComponent from "../components/shopDetailComponent/shopDetailComponent";
 import CartComponent from "../components/cartComponent/cartComponent";
+
 import { connect } from "react-redux";
-import ADD_TO_CART_ACTIONS from "../store/actions/addToCart-action";
+import fetchShops from "../store/actions/fetchApi-action";
+import getaddToCart from "../store/actions/addToCart-action";
 
 class ShopDetailPage extends React.Component {
   constructor(props) {
@@ -20,8 +21,16 @@ class ShopDetailPage extends React.Component {
       emptyText: "Cart is Empty!",
     };
   }
+  
+
+  componentWillMount() {
+    // const {fetchShops} = this.props;
+    // fetchShops();
+    this.props.dispatch(fetchShops());
+  }
 
   componentDidMount() {
+    // const {order} = this.props;
     let order = localStorage.getItem("order")
       ? JSON.parse(localStorage.getItem("order"))
       : this.state.order;
@@ -30,7 +39,10 @@ class ShopDetailPage extends React.Component {
       order: order,
       emptyText: !order.items.length ? "Cart is Empty!" : "",
     });
+
+    // this.props.dispatch(getaddToCart(order));
   }
+  
 
   addToCart = (foodId, foodName, foodPrice, foodDelivery) => {
     // this.props.dispatch(
@@ -88,6 +100,7 @@ class ShopDetailPage extends React.Component {
       );
     }
   };
+
   deleteItem = (deleteId, foodPrice) => {
     const orderIndex = this.state.order.items.findIndex(
       (order) => order.id == deleteId
@@ -167,9 +180,21 @@ class ShopDetailPage extends React.Component {
       }
     );
   };
+
   render() {
+    const {shops, error, isloading, order} = this.props;
     const propsId = this.props.match.params.id;
-    const ShopDetail = Shops.find((shop) => propsId == shop.id);
+    console.log(order)
+    const ShopDetail = shops.find((shop) => propsId == shop.id);
+    if(!ShopDetail){
+      return (
+        <div className="d-flex justify-content-center align-items-center" style={{height: '100vh'}}>
+          <div className="spinner-grow" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      )
+    }
     return (
       <div>
         <NavbarComponent />
@@ -381,5 +406,14 @@ class ShopDetailPage extends React.Component {
   }
 }
 
-// let reduxCart = connect()(ShopDetailPage);
-export default ShopDetailPage;
+const mapStateToProps = state => ({
+  shops: state.fetchApiReducer.shops,
+  error: state.fetchApiReducer.error,
+  isloading: state.fetchApiReducer.isloading,
+  // order: state.addToCartReducer.order
+})
+
+export default connect(
+  mapStateToProps,
+  // mapDispatchToProps
+)(ShopDetailPage);

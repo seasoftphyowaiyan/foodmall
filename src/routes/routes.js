@@ -3,6 +3,8 @@ import reduxLogin from "../components/loginComponent/loginComponent";
 import Register from "../components/registerComponent/registerComponent";
 import CheckOutPage from "../pages/checkoutPage";
 import HomePage from "../pages/homePage";
+import OrderConfirmed from "../pages/orderConfirmPage";
+import PaymentPage from "../pages/paymentPage";
 import ShopListingPage from "../pages/shopListingPage";
 
 export const MENU_ROUTES = [{
@@ -22,6 +24,18 @@ export const MENU_ROUTES = [{
         component: CheckOutPage,
         auth: true,
         name: 'CheckOut',
+    },
+    {
+        path: "/payment_process",
+        component: PaymentPage,
+        auth: true,
+        name: 'Payment',
+    },
+    {
+        path: "/order_confirm",
+        component: OrderConfirmed,
+        auth: true,
+        name: 'Order Confirmed',
     },
     {
         path: "/register",

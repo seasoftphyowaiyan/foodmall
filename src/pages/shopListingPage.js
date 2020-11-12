@@ -1,16 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Shops from "../data/shops.json";
+// import Shops from "../data/shops.json";
+import {SHOPS_URL} from "../data/api";
 import ShopList from "../components/shopListingComponent/shopListingComponent";
 import NavbarComponent from "../components/navbarComponent/navbarComponent";
 import FiltersComponent from "../components/filtersComponent/filtersComponent";
 import ShopListRow from "../components/shopListingComponent/shopListingRowComponent";
 
+import { connect } from "react-redux";
+import fetchShops from "../store/actions/fetchApi-action";
+
 class ShopListingPage extends React.Component {
-  state = {
-    shops: Shops,
-    toggle: true,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      toggle: true,
+    };
+  }
+  componentWillMount() {
+    // const {fetchShops} = this.props;
+    // fetchShops();
+    this.props.dispatch(fetchShops());
+  }
   toggle = () => {
     this.setState({
       toggle: !this.state.toggle,
@@ -18,6 +29,7 @@ class ShopListingPage extends React.Component {
   };
   input = React.createRef();
   render() {
+    const {shops, error, isloading} = this.props;
     return (
       <div>
         <NavbarComponent />
@@ -117,13 +129,13 @@ class ShopListingPage extends React.Component {
 
               {this.state.toggle ? (
                 <div className="row grip_page">
-                  {Shops.map(({ id, ...otherItemProps }) => (
+                  {shops.map(({ id, ...otherItemProps }) => (
                     <ShopList key={id} id={id} {...otherItemProps} />
                   ))}
                 </div>
               ) : (
                 <div className="row list_page">
-                  {Shops.map(({ id, ...otherItemProps }) => (
+                  {shops.map(({ id, ...otherItemProps }) => (
                     <ShopListRow key={id} id={id} {...otherItemProps} />
                   ))}
                 </div>
@@ -136,4 +148,13 @@ class ShopListingPage extends React.Component {
   }
 }
 
-export default ShopListingPage;
+const mapStateToProps = state => ({
+  shops: state.fetchApiReducer.shops,
+  error: state.fetchApiReducer.error,
+  isloading: state.fetchApiReducer.isloading
+})
+
+export default connect(
+  mapStateToProps,
+  // mapDispatchToProps
+)(ShopListingPage);

@@ -4,9 +4,13 @@ import {
 import {
     addToCartReducer
 } from "./addToCart-reducer";
+import {
+    fetchApiReducer
+} from "./fetchApi-reducer";
 
 const rootReducer = combineReducers({
-    addToCartReducer
+    addToCartReducer,
+    fetchApiReducer
 })
 
 export default rootReducer;
